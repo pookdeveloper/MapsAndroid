@@ -67,7 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int PATTERN_GAP_LENGTH_PX = 20;
     private static final PatternItem DOT = new Dot();
     private static final PatternItem GAP = new Gap(PATTERN_GAP_LENGTH_PX);
-    // Create a stroke pattern of a gap followed by a dot.
+    // Create a stroke pattern of a gap followed btextViewVelocidadMaximay a dot.
     private static final List<PatternItem> PATTERN_POLYLINE_DOTTED = Arrays.asList(GAP, DOT);
 
     Polyline polyline1 = null;
@@ -76,10 +76,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     TextView textView;
     TextView textView2;
     TextView textView3;
+    TextView textViewVelocidadMaxima;
+
+
     Button button;
     boolean grabando = false;
     Double distance = 0.0;
     float distanceFloat = 0;
+    float velocidadMaxima = 0;
 
 
     @Override
@@ -93,13 +97,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         button.setOnClickListener(this);
 
         textView3 = findViewById(R.id.textView3);
+        textViewVelocidadMaxima = findViewById(R.id.textViewVelocidadMaxima);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
         //GPS -- Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
@@ -136,9 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         //polyline1 = mMap.addPolyline(polylineOptions.clickable(true).add(arrayPosiciones.get(arrayPosiciones.size()-1), new LatLng(39.432751, -0.431233)));
                                         textView.setText(arrayPosiciones.get(arrayPosiciones.size() - 1) + "-->");
                                         textView2.setText(calymayor + "-->");
-
                                     }
-
 
 
                                     distance = distance + SphericalUtil.computeDistanceBetween(arrayPosiciones.get(arrayPosiciones.size() - 1), calymayor);
@@ -152,6 +152,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                     distanceFloat = distanceFloat+results[0];
                                     textView3.setText("Distancia: " + distanceFloat + "km --> " + mLastLocation.getSpeed() +"Km/h");
+
+                                    velocidadMaxima = (mLastLocation.getSpeed() > velocidadMaxima) ? mLastLocation.getSpeed():velocidadMaxima;
+                                    textViewVelocidadMaxima.setText("VM: "+velocidadMaxima+" Km/h");
 
                                     //polyline1 = mMap.addPolyline(polylineOptions.clickable(true).addAll(arrayPosiciones));
 
@@ -168,7 +171,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             },
                             3000);
                 }
-
             }
 
 

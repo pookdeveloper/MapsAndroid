@@ -19,6 +19,7 @@
         android:layout_height="33dp"
         android:layout_marginTop="8dp"
         android:text="Longitud" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
@@ -26,6 +27,12 @@
         android:layout_marginTop="8dp"
         android:text="Distance: 0km" />
 
+    <TextView
+        android:id="@+id/textViewVelocidadMaxima"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginTop="8dp"
+        android:text="VM: 0 Km/h" />
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
